@@ -1,0 +1,100 @@
+#################################################
+############## AFTER DELETE #####################
+#################################################
+
+DELIMITER $$
+
+CREATE TRIGGER after_manufacturers_delete
+AFTER DELETE
+ON manufacturers FOR EACH ROW
+BEGIN
+        DELETE FROM product 
+	 WHERE product.manufacturer_id = old.id;
+END$$
+
+DELIMITER ;
+
+
+##################################
+#######procdure###################
+##################################
+
+
+
+DELIMITER $$
+CREATE PROCEDURE manufacturer_entry
+(
+IN nam VARCHAR(50),
+IN addr VARCHAR(100),
+IN cont VARCHAR(50)
+)
+BEGIN 
+insert into manufacturers values('',nam,addr,cont);
+END $$
+DELIMITER ;
+
+
+
+########################################
+
+
+DELIMITER $$
+CREATE PROCEDURE product_entry
+(
+IN name VARCHAR(50),
+IN price VARCHAR(100),
+IN manufacturer_id	 VARCHAR(50)
+)
+BEGIN 
+insert into product values('',nam,price,manufacturer_id	);
+END $$
+DELIMITER ;
+
+
+
+#############################
+##########product Add#######
+#############################
+INSERT INTO product (id, name, price, manufacturers_id) VALUES 
+(NULL, 'MI LED TV 1 ', '198990', '4'),
+(NULL, 'MI LED TV 2 ', '198990', '4'),
+(NULL, 'MI LED TV 3 ', '198990', '4');
+
+
+###################################
+
+
+SELECT * FROM `product` WHERE price >5000;
+
+####################################
+##########Create View ##############
+###################################
+
+
+CREATE VIEW products_view AS 
+
+
+SELECT * FROM `product` WHERE price >5000;
+
+
+
+####################################
+##########Create View ##############
+###################################
+
+
+CREATE VIEW country_usa AS
+
+SELECT employeeNumber,lastName,firstName,jobtitle,country from employees , offices where offices.officeCode=employees.officeCode AND country in('USA','UK');
+
+
+
+################################
+
+
+
+SELECT employeeNumber,lastName,firstName,jobtitle,country from employees , offices where offices.officeCode=employees.officeCode AND country in('USA','UK');
+
+
+
+

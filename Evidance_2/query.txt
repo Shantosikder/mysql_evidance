@@ -1,0 +1,21 @@
+DELIMITER $$
+
+CREATE TRIGGER after_student_delete
+AFTER DELETE
+ON student FOR EACH ROW
+BEGIN
+        DELETE FROM result 
+	 WHERE result.student_id = old.id;
+END$$
+
+DELIMITER ;
+
+
+########################
+
+
+CREATE VIEW student_show AS
+    SELECT name,address,modiul_name,totalmark
+FROM 
+student, result 
+WHERE student.id = result.student_id;

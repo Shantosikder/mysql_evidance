@@ -1,0 +1,56 @@
+############################
+###### After INSERT ########
+######## Trigger ###########
+
+CREATE TRIGGER `insert_trigger` AFTER INSERT ON `product` FOR EACH ROW INSERT INTO product_log VALUES
+(NULL,
+ NEW.name,
+ NEW.product_price,
+ 'INSERT',
+ now(),
+ NEW.id);
+
+ ############################
+ ######## UPDATE ############
+ ############################
+
+CREATE TRIGGER `Update_trigger` BEFORE UPDATE ON `product` FOR EACH ROW INSERT INTO product_log VALUES
+(NULL,
+ OLD.name,
+ OLD.product_price,
+ 'UPDATE',
+ now(),
+ OLD.id);
+
+ ######################
+ ####### DELETE #######
+ ######################
+
+CREATE TRIGGER `delete_trigger` BEFORE DELETE ON `product` FOR EACH ROW INSERT INTO product_log VALUES
+(NULL,
+ OLD.name,
+ OLD.product_price,
+ 'DELETE',
+ now(),
+ OLD.id);
+
+
+ #####################
+ ######Procedure######
+ #####################
+
+ DELIMITER $$
+CREATE PROCEDURE product_entry
+(
+IN name VARCHAR(50),
+IN product_details VARCHAR(100),
+IN  product_price VARCHAR(50)
+)
+BEGIN 
+insert into procucts values('',name, product_details,product_price);
+END $$
+DELIMITER ;
+
+
+
+
